@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Product.associate = (models) => {
-    Product.belongsToMany(models.Cart, { through: models.CartProduct, foreignKey: 'product_id' });
+    Product.belongsToMany(models.Cart, { through: models.CartProduct, foreignKey: 'productId' });
   };
 
   return Product;

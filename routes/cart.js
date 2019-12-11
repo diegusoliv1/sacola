@@ -13,4 +13,24 @@ router.post('/', async (req, res) => {
   res.json(cart);
 });
 
+router.post('/:id/product', async (req, res) => {
+  const { id: cartId } = req.params;
+  const { productId, quantity } = req.body;
+  const cart = await cartService.addProduct({ cartId, productId, quantity });
+  res.json(cart);
+});
+
+router.put('/:id/product', async (req, res) => {
+  const { id: cartId } = req.params;
+  const { productId, quantity } = req.body;
+  const cart = await cartService.updateProductQuantity({ cartId, productId, quantity });
+  res.json(cart);
+});
+
+router.delete('/:id/product/:productId', async (req, res) => {
+  const { id: cartId, productId } = req.params;
+  const cart = await cartService.removeProduct({ cartId, productId });
+  res.json(cart);
+});
+
 module.exports = router;
