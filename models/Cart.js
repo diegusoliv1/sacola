@@ -1,13 +1,13 @@
 
 module.exports = (sequelize, DataTypes) => {
   const Cart = sequelize.define('Cart', {
-    id: { type: DataTypes.UUID, primaryKey: true },
+    id: { type: DataTypes.UUID, primaryKey: true, defaultValue: DataTypes.UUIDV1 },
     clientId: { field: 'client_id', type: DataTypes.UUID}
   });
 
   Cart.associate = (models) => {
-    Cart.belongsTo(models.Client, { foreignKey: 'client_id' });
-    Cart.belongsToMany(models.Product, { through: models.CartProduct, foreignKey: 'cart_id' });
+    Cart.belongsTo(models.Client, { alias: 'client', foreignKey: 'clientId' });
+    Cart.belongsToMany(models.Product, { through: models.CartProduct, foreignKey: 'productId', as: 'products' });
   };
 
   return Cart;
