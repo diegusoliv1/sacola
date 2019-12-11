@@ -30,6 +30,12 @@ db.Product.associate(db);
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-db.sequelize.sync();
+db.sequelize.sync().then(() => {
+  db.Product.bulkCreate([
+    { name: 'Camisa', description: 'Uma Camisa Legal', price: 10.99 },
+    { name: 'Bolsa', description: 'Uma Bolsa Legal', price: 15.99 },
+    { name: 'Jaqueta', description: 'Uma Jaqueta Legal', price: 20.99 }
+  ]);
+});
 
 module.exports = db;

@@ -6,5 +6,17 @@ module.exports = {
   },
   create: async (clientId) => {
     return models.Cart.create({ clientId });
+  },
+  addProduct: async ({ cartId, productId, quantity }) => {
+    await models.CartProduct.create({ cartId, productId, quantity });
+    return this.getById(cartId);
+  },
+  updateProductQuantity: async ({ cartId, productId, quantity }) => {
+    await models.CartProduct.update({ quantity }, { where: { cartId, productId }});
+    return this.getById(cartId);
+  },
+  removeProduct: async ({ cartId, productId }) => {
+    await models.CartProduct.destroy({ where: { cartId, productId }});
+    return this.getById(cartId);
   }
 };
